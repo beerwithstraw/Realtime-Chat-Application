@@ -10,6 +10,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+io.on('connector', (socket) => {
+    console.log('We have a new connection!');
+
+    socket.on('disconnect', () => {
+        console.log('User has left!');
+    })
+});
+
 app.use(router); 
 
 server.listen(PORT, () => console.log(`Server started at PORT ${PORT}`));
